@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo And Ninjas With Templates</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body>
+    <div id='container'>
+        <form action="add_dojo" method=GET class='dojo_form'>
+                <ul>
+                    <h1>Add a Dojo!</h1>
+                    <li>Name<input type="text" name="dojo_name"></li>
+                    <li>City<input type="text" name="dojo_city"></li>
+                    <li>State<input type="text" name="dojo_state"></li>
+                    <button>ADD</button>
+                </ul>
+        </form>
+        <form action="add_ninja" method=GET class='ninja_form'>
+                <ul>
+                    <h1>Add a Ninja!</h1> 
+                    <li>First Name<input type="text" name="ninja_first_name"></li>
+                    <li>Last Name<input type="text" name="ninja_last_name"></li>
+                    <li>Dojo <select name="dojo_id" id="dojo_options">
+                        {% for dojo in all_dojos %}
+                        <option value = {{dojo.id}}>{{dojo.name}}</option>
+                        {% endfor %}
+                    </select></li>
+                    <button>ADD</button>
+                </ul>
+                
+        <div class='bot-container'>
+            {% for dojo in all_dojos %}
+                <h3>{{dojo.name}}</h3>
+                <ul>
+                    {% for ninja in dojo.ninjas.all %}
+                        <li> {{ninja.first_name}} {{ninja.last_name}} </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+        
+        </form>
+    </div>
+    
+</body>
+</html>
